@@ -1,18 +1,22 @@
+<!DOCTYPE html>
 {% load static %}
-<html>
+<html> lang="ja"
     <head>
+        <meta charset="utf-8">
         <title>Django Girls blog</title>
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="{% static 'blog/css/blog.css' %}?123456">
         <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
     </head>
+
     <body>
       <div class="page-header">
         {% if user.is_authenticated %}
         <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
 　　　　　{% endif %}
-      <h1><a href="/">Django Girls Blog</a></h1>
+      <h1><a href="/">新型コロナウイルス感染状況</a></h1>
   　　</div>
   <div class="content container">
       <div class="row">
@@ -22,5 +26,75 @@
           </div>
       </div>
   </div>
+
+
+  <h3>国内の年齢別陽性者数</h3>
+  <p>
+    計17,440名
+    0~10代：715名<br>
+    20代~30代：5,654名<br>
+    40代~50代：5,519名<br>
+    60代~70代：3,674名<br>
+    80代以上：1,826名<br>
+    不明：52名
+  </p>
+  <canvas id="radar-chart"></canvas>
+  <script type="text/javascript">
+
+  var ctx = document.getElementById("radar-chart");
+  var myRadarChart = new Chart(ctx, {
+      type: 'radar',
+      data: {
+          labels: ['0~10代', '20代~30代', '40~50代', '60~70代', '80代以上'],
+          datasets: [
+              {   label: "6月20日時点での年齢別国内陽性者数",
+                  data: [715, 5654, 5519, 3674, 1826],
+                  backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                  borderColor: 'rgba(255, 99, 132, 0.9)',
+                  pointBackgroundColor: 'rgba(255, 99, 132, 0.9)',
+                  pointBorderColor: 'rgba(255, 99, 132, 1)',
+                  borderWidth: 3,
+                  pointRadius: 3,
+
+              }]},
+
+
+  });
+  </script>
+
+
+  <h3>アメリカ合衆国の感染・死者数の推移</h3>
+  <canvas id="myLineChart"></canvas>
+  <script type="text/javascript">
+  var ctx = document.getElementById("myLineChart");
+  var myLineChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['1/22', '2/6', '3/6', '3/10', '3/18', '3/20', '3/26', '3/30', '4/6', '4/15', '4/22', '4/28', '5/5', '5/15', '5/20', '5/25', '5/30', '6/5', '6/10', '6/15', '6/20'],
+      datasets: [
+        {
+          label: '感染者の累計(死者を含む)(人）',
+          data: [1, 12, 148, 670, 6119, 13017, 82082, 164343, 366667, 636350, 839675, 1012582, 1204351, 1442824, 1551853, 1662302, 1770165, 1897370, 2000464, 2114026, 2255119],
+          borderColor: "rgba(255,0,0,1)",
+          backgroundColor: "rgba(0,0,0,0)"
+        },
+        {
+          label: '死者の累計(人）',
+          data: [0, 0, 12, 26, 104, 185, 2435, 3016, 10783, 28326, 46583, 58355, 71064, 87530, 93439, 98220, 103776, 109132, 112924, 116127, 119719],
+          borderColor: "rgba(0,0,255,1)",
+          backgroundColor: "rgba(0,0,0,0)"
+        }
+      ],
+    },
+    options: {
+      title: {
+        display: true,
+        text: '感染・死者数の推移'
+      },
+
+    }
+  });
+  </script>
+
     </body>
 </html>
