@@ -122,11 +122,44 @@
     </script>
 
 
-  <h3>　　【アメリカ合衆国の感染・死者数の推移】</h3>
+  <h3>　　【東京都の感染・死者数の推移】</h3>
   <canvas id="myLineChart" height="100px"></canvas>
   <script type="text/javascript">
   var ctx = document.getElementById("myLineChart");
   var myLineChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['2/16', '3/6', '3/10', '3/18', '3/20', '3/26', '3/30', '4/6', '4/15', '4/22', '4/28', '5/5', '5/15', '5/20', '5/25', '5/30', '6/5', '6/10', '6/15', '6/20', '6/25'],
+      datasets: [
+        {
+          label: '感染者の累計(死者を含む)(人）',
+          data: [6,58,67,111,129,260,448,1127,2510,3509,4168,4830,5078,5117,5155,5226,5338,5421,5587,5745,5943],
+          borderColor: "rgba(255,0,0,1)",
+          backgroundColor: "rgba(0,0,0,0)"
+        },
+        {
+          label: '死者の累計(人）',
+          data: [0,1,2,2,3,5,9,30,53,81,108,150,219,247,288,304,309,311,314,320,325,],
+          borderColor: "rgba(0,0,255,1)",
+          backgroundColor: "rgba(0,0,0,0)"
+        }
+      ],
+    },
+    options: {
+      title: {
+        display: true,
+        text: '感染・死者数の推移'
+      },
+
+    }
+  });
+  </script>
+
+  <h3>　　【アメリカ合衆国の感染・死者数の推移】</h3>
+  <canvas id="myLineChart2" height="100px"></canvas>
+  <script type="text/javascript">
+  var ctx = document.getElementById("myLineChart2");
+  var myLineChart2 = new Chart(ctx, {
     type: 'line',
     data: {
       labels: ['1/22', '2/6', '3/6', '3/10', '3/18', '3/20', '3/26', '3/30', '4/6', '4/15', '4/22', '4/28', '5/5', '5/15', '5/20', '5/25', '5/30', '6/5', '6/10', '6/15', '6/20'],
