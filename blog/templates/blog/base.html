@@ -28,39 +28,95 @@
   </div>
 
 
-  <h3>国内の年齢別陽性者数</h3>
-  <p>
-    計17,440名
-    0~10代：715名<br>
-    20代~30代：5,654名<br>
-    40代~50代：5,519名<br>
-    60代~70代：3,674名<br>
-    80代以上：1,826名<br>
-    不明：52名
-  </p>
-  <canvas id="radar-chart"></canvas>
-  <script type="text/javascript">
+  <h3>6月20日東京都感染者数60人〜感染経路〜</h3>
+  <meta charset="UTF-8">
+  <canvas id="myChart"></canvas>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
 
-  var ctx = document.getElementById("radar-chart");
-  var myRadarChart = new Chart(ctx, {
-      type: 'radar',
-      data: {
-          labels: ['0~10代', '20代~30代', '40~50代', '60~70代', '80代以上'],
-          datasets: [
-              {   label: "6月20日時点での年齢別国内陽性者数",
-                  data: [715, 5654, 5519, 3674, 1826],
-                  backgroundColor: 'rgba(255, 99, 132, 0.6)',
-                  borderColor: 'rgba(255, 99, 132, 0.9)',
-                  pointBackgroundColor: 'rgba(255, 99, 132, 0.9)',
-                  pointBorderColor: 'rgba(255, 99, 132, 1)',
-                  borderWidth: 3,
-                  pointRadius: 3,
+  <script>
+  var myChart = document.getElementById("myChart").getContext('2d');
+var dataLabelPlugin = {
+    afterDatasetsDraw: function (chart, easing) {
+        var ctx = chart.ctx;
+        chart.data.datasets.forEach(function (dataset, i) {
+            var meta = chart.getDatasetMeta(i);
+            if (!meta.hidden) {
+                meta.data.forEach(function (element, index) {
+                    ctx.fillStyle = 'rgb(255, 255, 255)';
 
-              }]},
+                    var fontSize = 16;
+                    var fontStyle = 'normal';
+                    var fontFamily = 'Helvetica Neue';
+                    ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
 
+                    var dataString = chart.data.labels[index]+' : '+dataset.data[index].toString();
 
-  });
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+
+                    var padding = 5;
+                    var position = element.tooltipPosition();
+                    ctx.fillText(dataString, position.x, position.y - (fontSize / 2) - padding);
+                })
+            }
+        })
+    }
+}
+var chart = new Chart(myChart, {
+  type: 'pie',
+  data: {
+    labels: ["不明", "濃厚接触"],
+    datasets: [{
+      backgroundColor: [
+        "#E60012",
+        "#1D2088"
+      ],
+      data: [39, 21]
+    }]
+  },
+    options: {
+        title: {
+        display: true,
+        text: '東京　60人感染　感染経路'
+        }
+    },
+    plugins: [dataLabelPlugin],
+});
   </script>
+
+  <h3>国内の年齢別陽性者数</h3>
+    <p>
+      計17,440名
+      0~10代：715名<br>
+      20代~30代：5,654名<br>
+      40代~50代：5,519名<br>
+      60代~70代：3,674名<br>
+      80代以上：1,826名<br>
+      不明：52名
+    </p>
+    <canvas id="radar-chart"></canvas>
+    <script type="text/javascript">
+
+    var ctx = document.getElementById("radar-chart");
+    var myRadarChart = new Chart(ctx, {
+        type: 'radar',
+        data: {
+            labels: ['0~10代', '20代~30代', '40~50代', '60~70代', '80代以上'],
+            datasets: [
+                {   label: "6月20日時点での年齢別国内陽性者数",
+                    data: [715, 5654, 5519, 3674, 1826],
+                    backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                    borderColor: 'rgba(255, 99, 132, 0.9)',
+                    pointBackgroundColor: 'rgba(255, 99, 132, 0.9)',
+                    pointBorderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 3,
+                    pointRadius: 3,
+
+                }]},
+
+
+    });
+    </script>
 
 
   <h3>アメリカ合衆国の感染・死者数の推移</h3>
